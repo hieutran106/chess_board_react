@@ -18,33 +18,34 @@
   font-size: large;
 }
 
-#chessboard, .black_square, .white_square {
+#board, .black_square, .white_square {
   display:block;
   padding:0px;
   margin:0px;
 }
 
-#chessboard {
+#board {
   width:720px;
   height:720px;
   border:4px solid #FF0000;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .black_square, .white_square {
   width:90px;
   height:90px;
-  float:left;
+
 }
 
 .black_square {
   background-color: #2f230c;
 }
-.chess_pieces {
+.piece {
   position: absolute;
 
-
 }
-.chess_pieces img {
+.piece img {
   position: absolute;
   left: 50%;
   top: 50%;

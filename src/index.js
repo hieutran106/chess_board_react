@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChessBaord from './ChessBoard';
-import './index.css';
+import Board from './Board';
+
 
 ReactDOM.render(
-  <ChessBaord />,
+  <Board />,
   document.getElementById('root')
 );

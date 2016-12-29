@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import './App.css';
-import BoardCell from './BoardCell'
-import ChessPiece from './ChessPiece'
+import Square from './Square'
+import Piece from './Piece'
 
-var ChessBoard = React.createClass({
+var Board = React.createClass({
     getInitialState() {
       return {initState:[
           [-4,-2,-3,-5,-6,-3,-2,-4],
@@ -49,42 +49,41 @@ var ChessBoard = React.createClass({
                 return "error";
         }
     },
+    renderSquare(i) {
+
+        const x = Math.floor(i / 8);
+        const y = i % 8;
+
+        const black = (x + y) % 2 === 1;
+
+        var piece;
+        var state=this.state.initState[x][y];
+        if (state !== 0) {
+            var type = this.getType(state);
+            piece = <Piece type={type}/>;
+
+        } else {
+            piece=null;
+        }
+        console.log(piece);
+        return (<Square key={i} pos={i} black={black}>
+            {piece}
+        </Square>)
+
+    },
+
     render() {
-        var content=[];
-
-        for (var i=0;i<8;i++) {
-            var row=[];
-            for (var j=0;j<8;j++) {
-                var pos={i:i,j:j};
-                var cell=<BoardCell key={"pos"+i+j} pos={pos}/>;
-                row.push(cell);
-            }
-            content.push(<div key={"row"+i}>{row}</div>);
+        var squares=[];
+        //Draw the board
+        for (var i=0;i<64;i++) {
+            squares.push(this.renderSquare(i));
         }
-
-        var chess_pieces=[];
-        for (var i=0;i<8;i++) {
-            for ( var j=0;j<8;j++) {
-
-                var state=this.state.initState[i][j];
-
-                if (state !== 0) {
-                    var type = this.getType(this.state.initState[i][j]);
-                    var pos = {i: i, j: j};
-                    var piece = <ChessPiece key={"pos" + i + j} type={type} pos={pos}/>;
-                    chess_pieces.push(piece);
-                }
-            }
-        }
-
         return (
-            <div id="chessboard">
-                {content}
-                {chess_pieces}
+            <div id="board">
+                {squares}
             </div>
         )
-
     }
 })
 
-export default ChessBoard
+export default Board
